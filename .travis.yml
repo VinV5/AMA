@@ -4,3 +4,9 @@ jdk:
 
 before_script: 
   - git update-index --chmod=+x gradlew
+
+install:
+  - ./gradlew assemble
+
+script:
+  - ./gradlew check
