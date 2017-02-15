@@ -1,10 +1,4 @@
 language: java
 
-sudo: false
-
-jdk:
- - oraclejdk8
-
-script:
- - gradle check
-
+install: gradle assemble
+build: gradle check
