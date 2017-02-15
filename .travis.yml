@@ -1,6 +1,6 @@
 language: java
 
-jdk
+jdk:
     - oraclejdk8
 
 install: gradle assemble
