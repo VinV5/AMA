@@ -1,4 +1,16 @@
 language: java
-before_install:
+
+sudo: false
+
+jdk:
+ - oraclejdk8
+
+os:
+ - linux
+
+before_script:
  - chmod +x gradlew
-  ./gradlew check
+
+script:
+ - ./gradlew check
+
