@@ -1,0 +1,14 @@
+An AMA Session can be a public or private session.
+Different types of users(Guests(Unregistered), Registered User, Moderator(Admin)).
+Login and registration mechanism(Database(SQL), authentication.
+User Interface(Views: User Profile, General Page, Individual Question page)
+Voting mechanism(LIking and Disliking)
+Categories for Question
+Categories for AMA
+Types of Users(Groups)
+Ability to create AMA and post question
+Following mechanism
+Ranking and Sorting mechanism(Views, Votes, MOst answered, popular, alphabetical, tags) for the AMA and Questions
+Ads???????
+Team AMA(Group of Users)
+AMA Date deadline
