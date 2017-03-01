@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Create AMA</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Create AMA</h1>
+        <hr/>
+        <form action="" >
+
+            <div class="form-group">
+                <label for="title">AMA Title</label>
+                <input class="form-control" placeholder="Enter AMA Title" id="title"></input>
+                <hr/>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Choose Category: </label>
+                <select id="category">
+                    <th:block th:each="category, iterationStatus : ${questionCategories}" th:inline="text">
+                        <option th:value="${category}">[[${category}]]</option>
+                    </th:block>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="time-limit">Set Time Limit: </label>
+                <input type="number" min="0" id="time-limit"/> Hours
+            </div>
+
+            <div class="form-group">
+                <label for="presenters">Add Presenters: </label>
+                <input type="text" id="presenters" class="form-control"/>
+            </div>
+
+            <button class="btn btn-success pull-right" type="submit">Submit</button>
+        </form>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
