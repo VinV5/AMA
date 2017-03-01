@@ -1,13 +1,20 @@
 package ama.Model;
 
+import lombok.Data;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by nur-sh on 2017-03-01.
- */
+@Entity
+@Data
 public class Group {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @OneToMany
     private List<User> members;
 
     public Group() {
@@ -18,11 +25,4 @@ public class Group {
         members.add(user);
     }
 
-    public List<User> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<User> members) {
-        this.members = members;
-    }
 }

@@ -7,9 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- * Created by robertfernandes on 2/28/2017.
- */
+
 @Entity
 @Data
 public class Question extends Rankable {

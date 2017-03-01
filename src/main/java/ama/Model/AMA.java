@@ -6,9 +6,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by robertfernandes on 2/28/2017.
- */
 @Entity
 @Data
 public class AMA extends Rankable {
@@ -17,14 +14,14 @@ public class AMA extends Rankable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String title;
-
-    @OneToMany
-    private List<User> presenters;
+    private String description;
+    @ManyToOne
+    private User author;
+    @ManyToOne
+    private Group authors;
 
     @OneToMany
     private List<Question> questionList;
-
     private Category category;
     private int time;
 
@@ -33,21 +30,30 @@ public class AMA extends Rankable {
     }
 
     public AMA(String title) {
-        this.title = title;
-        presenters = new ArrayList<>();
+        this.description = title;
         questionList = new ArrayList<>();
     }
 
-    public void addPresenter(User user) {
-        presenters.add(user);
+    public String getDescription() {
+        return description;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void addQuestion(Question question) {
-        questionList.add(question);
+    public int getTime() {
+        return time;
     }
 
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return  "Description: " + this.description + "\n" +
+                "Category: " + this.category + "\n" +
+                "Time: " + this.time;
+    }
 }

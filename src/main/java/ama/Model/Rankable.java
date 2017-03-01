@@ -2,11 +2,6 @@ package ama.Model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-
-/**
- * Created by robertfernandes on 2/28/2017.
- */
 @Data
 public abstract class Rankable {
 
