@@ -27,7 +27,20 @@ repositories {
 }
 
 dependencies {
+
+    // thymeleaf
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-devtools")
+
+    // JPA Spring database
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    // using h2 database
+    compile("com.h2database:h2")
+
+    // lombok
+    compileOnly "org.projectlombok:lombok:1.16.14"
+
+    // test dependencies
+    // junit
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
