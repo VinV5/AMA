@@ -3,6 +3,7 @@ package ama.Model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public class AMA extends Rankable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String description;
+    private String title;
 
     @OneToMany
     private List<User> presenters;
@@ -24,16 +25,25 @@ public class AMA extends Rankable {
     @OneToMany
     private List<Question> questionList;
 
+    private Category category;
+    private int time;
+
     public AMA() {
         this("");
     }
 
-    public AMA(String description) {
-
+    public AMA(String title) {
+        this.title = title;
+        presenters = new ArrayList<>();
+        questionList = new ArrayList<>();
     }
 
     public void addPresenter(User user) {
         presenters.add(user);
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public void addQuestion(Question question) {
