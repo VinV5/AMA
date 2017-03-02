@@ -1,8 +1,4 @@
-package ama.Model;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+package ama.model;
 
 public enum Category {
     Science("Science"),

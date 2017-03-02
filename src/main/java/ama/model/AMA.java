@@ -1,4 +1,4 @@
-package ama.Model;
+package ama.model;
 
 import lombok.Data;
 
@@ -25,11 +25,16 @@ public class AMA extends Rankable {
     private int time;
 
     public enum urMOm {
-        asdf, jkljk, hihuih
+        nur, rob, amh, vevo
     }
 
     public AMA() {
 
+    }
+
+    public AMA(User author, String description) {
+        this.author = author;
+        this.description = description;
     }
 
 }
