@@ -10,9 +10,11 @@ buildscript {
     }
 }
 
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -38,7 +40,7 @@ dependencies {
     compile("com.h2database:h2")
 
     // lombok
-    compileOnly "org.projectlombok:lombok:1.16.14"
+    compile('org.projectlombok:lombok:1.16.6')
 
     // test dependencies
     // junit
