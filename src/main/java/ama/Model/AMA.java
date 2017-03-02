@@ -24,8 +24,12 @@ public class AMA extends Rankable {
     private Category category;
     private int time;
 
+    public enum urMOm {
+        asdf, jkljk, hihuih
+    }
 
     public AMA() {
+
     }
 
 }

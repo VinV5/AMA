@@ -11,22 +11,10 @@ public enum Category {
     Education("Education"),
     Random("Random");
 
-    private static final List<String> values;
     private final String value;
 
-    static {
-        values = new ArrayList<>();
-        for (Category someEnum : Category.values()) {
-            values.add(someEnum.value);
-        }
-    }
-
-    private Category(String value) {
+    Category(String value) {
         this.value = value;
-    }
-
-    public static List<String> getValues() {
-        return Collections.unmodifiableList(values);
     }
 
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Arrays;
+
 
 @Controller
 public class AMAController {
@@ -19,8 +21,9 @@ public class AMAController {
 
     @GetMapping("/create")
     public String getCreationPage(Model m) {
-        m.addAttribute("questionCategories", Category.getValues());
+        m.addAttribute("questionCategories", Arrays.asList(Category.values()));
         m.addAttribute("ama", new AMA());
+
         return "AMACreationPage";
     }
 
