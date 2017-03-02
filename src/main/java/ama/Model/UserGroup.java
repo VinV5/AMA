@@ -6,18 +6,18 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
-public class Group {
+@Entity
+public class UserGroup {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @OneToMany
+    @ManyToMany (mappedBy = "groups",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<User> members;
 
-    public Group() {
+    public UserGroup() {
         members = new ArrayList<>();
     }
 

@@ -9,7 +9,7 @@
     <div class="container">
         <h1>Create AMA</h1>
         <hr/>
-        <form action="#" th:object="${ama}" th:action="@{/createAMA}" method="post">
+        <form action="#" th:action="@{/create}" th:object="${ama}"  method="post">
 
             <div class="form-group" >
                 <label for="title">AMA Title</label>
@@ -19,7 +19,7 @@
 
             <div class="form-group">
                 <label for="category">Choose Category: </label>
-                <select id="category">
+                <select id="category" th:field="*{category}">
                     <th:block th:each="category, iterationStatus : ${questionCategories}" th:inline="text">
                         <option th:value="${category}">[[${category}]]</option>
                     </th:block>
