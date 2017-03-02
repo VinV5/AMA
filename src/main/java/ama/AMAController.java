@@ -26,6 +26,7 @@ public class AMAController {
 
     @PostMapping("/create")
     public String createAMA(@ModelAttribute(name = "ama") AMA ama) {
+        //hello
         return "AMASoloPage";
     }
 }
