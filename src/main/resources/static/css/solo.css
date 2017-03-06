@@ -1,0 +1,24 @@
+.liker{
+    color: lightgrey;
+    font-size: 32px;
+    margin-top: 12px;
+}
+
+.liker:hover {
+    color: green;
+}
+
+.counter {
+    text-indent: 5px;
+    font-size: 24px;
+}
+
+.block {
+    display: block;
+}
+
+.vote {
+    float: left;
+    margin-right: 20px;
+}
+
