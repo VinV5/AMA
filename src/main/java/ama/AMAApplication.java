@@ -28,9 +28,9 @@ public class AMAApplication {
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
-            User a = new User("Ahmad");
-            AMA ama = new AMA(a, "hi");
-            userRepository.save(a);
+            //User a = new User("Ahmad");
+            AMA ama = new AMA( "hi");
+            //userRepository.save(a);
             amaRepository.save(ama);
         };
     }

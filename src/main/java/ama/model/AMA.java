@@ -14,10 +14,10 @@ public class AMA extends Rankable {
     private long id;
 
     private String description;
-    @ManyToOne
-    private User author;
-    @ManyToOne
-    private UserGroup authors;
+//    @ManyToOne
+//    private User author;
+//    @ManyToOne
+//    private UserGroup authors;
 
     @OneToMany
     private List<Question> questionList;
@@ -32,8 +32,8 @@ public class AMA extends Rankable {
 
     }
 
-    public AMA(User author, String description) {
-        this.author = author;
+    public AMA(String description) {
+        //this.author = author;
         this.description = description;
     }
 
