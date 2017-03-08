@@ -34,4 +34,6 @@ public class AMAApplication {
             amaRepository.save(ama);
         };
     }
+
+
 }

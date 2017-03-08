@@ -26,10 +26,11 @@
     <span th:text="${ama.category}" />
     <hr/>
 
+    <form action="#" th:action="@{/qcreate}" th:object="${ama}"  method="post">
+        <input class="form-control" placeholder="Enter Question" id="title" th:field="*{question}"></input>
+        <button class="btn btn-primary pull-right" type="submit">Ask Question</button>
+    </form>
 
-    <div class="row">
-        <button class="btn btn-primary pull-right">Ask Question</button>
-    </div>
 
 
 </div>

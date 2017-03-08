@@ -2,7 +2,9 @@ package ama.controllers;
 
 import ama.model.AMA;
 import ama.model.Category;
+import ama.model.Question;
 import ama.repositories.AMARepository;
+import ama.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -18,7 +20,8 @@ import java.util.List;
 public class AMAController {
     @Autowired
     private AMARepository amaRepository;
-
+    @Autowired
+    private QuestionRepository questionRepository;
     private Long id;
 
     @GetMapping("/")
@@ -30,7 +33,6 @@ public class AMAController {
     public String getCreationPage(Model m) {
         m.addAttribute("questionCategories", Arrays.asList(Category.values()));
         m.addAttribute("ama", new AMA());
-
         return "AMACreationPage";
     }
 
@@ -40,11 +42,27 @@ public class AMAController {
         return "AMASoloPage";
     }
 
+
+    @PostMapping("/qcreate")
+    public String createQuestion(@ModelAttribute(name = "ama") AMA ama) {
+        questionRepository.save(new Question(ama.getQuestion()));
+        return "AMASoloPage";
+    }
+
+
     @GetMapping("/ama/list")
     public @ResponseBody List<AMA> getAMAList() {
         List<AMA> amaList = new ArrayList<>();
         amaRepository.findAll().forEach(ama -> amaList.add(ama));
         return amaList;
+    }
+
+
+    @GetMapping("/question/list")
+    public @ResponseBody List<Question> getQuestionList() {
+        List<Question> questionList = new ArrayList<>();
+        questionRepository.findAll().forEach(q -> questionList.add(q));
+        return questionList;
     }
 
     @GetMapping("/ama/{id}")

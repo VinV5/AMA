@@ -12,7 +12,7 @@ public class AMA extends Rankable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    private String question;
     private String description;
 //    @ManyToOne
 //    private User author;
@@ -36,5 +36,8 @@ public class AMA extends Rankable {
         //this.author = author;
         this.description = description;
     }
-
+    public String getQuestion()
+    {
+        return this.question;
+    }
 }
