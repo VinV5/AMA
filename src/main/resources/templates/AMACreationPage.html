@@ -5,7 +5,7 @@
     <title>Create AMA</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
-<body>
+<body >
     <th:block th:include="fragments/nav :: nav"></th:block>
     <div class="container">
         <h1>Create AMA</h1>
@@ -14,7 +14,8 @@
 
             <div class="form-group" >
                 <label for="title">AMA Title</label>
-                <input class="form-control" placeholder="Enter AMA Title" id="title" th:field="*{description}"></input>
+                <input class="form-control" placeholder="Enter AMA Title" id="title" th:field="*{description}"></input>\
+
                 <hr/>
             </div>
 
@@ -31,7 +32,6 @@
                 <label for="time-limit">Set Time Limit: </label>
                 <input type="number" min="0" id="time-limit" th:field="*{time}"/> Hours
             </div>
-
 
             <button class="btn btn-success pull-right" type="submit">Submit</button>
         </form>

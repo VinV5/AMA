@@ -20,7 +20,7 @@ public class AMA extends Rankable {
 //    private UserGroup authors;
 
     @OneToMany
-    private List<Question> questionList;
+    public List<Question> questionList;
     private Category category;
     private int time;
 
@@ -40,4 +40,8 @@ public class AMA extends Rankable {
     {
         return this.question;
     }
+//    public void addQuestion(Question q)
+//    {
+//        this.questionList.add(q);
+//    }
 }

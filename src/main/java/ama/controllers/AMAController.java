@@ -45,6 +45,7 @@ public class AMAController {
 
     @PostMapping("/qcreate")
     public String createQuestion(@ModelAttribute(name = "ama") AMA ama) {
+//        ama.addQuestion(new Question(ama.getQuestion()));
         questionRepository.save(new Question(ama.getQuestion()));
         return "AMASoloPage";
     }

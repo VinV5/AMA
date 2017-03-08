@@ -24,10 +24,16 @@
         <input class="form-control" placeholder="Enter Question" id="title" th:field="*{question}"></input>
         <button class="btn btn-primary pull-right" type="submit">Ask Question</button>
     </form>
-
+    <div >
+        <h1>Questions List</h1>
+        <button type="button" onclick="loadQuestions();">Show Questions</button>
+        <div class="row questionlist"></div>
+    </div>
 
 
 </div>
+
+    <script th:src="@{/js/QuestionsHome.js}"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script th:src="@{/js/solo.js}"></script>
