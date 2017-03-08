@@ -6,15 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
 <body>
-    <div>
-        <ul class="nav nav-pills">
-            <li role="presentation"><a href="/">Home</a></li>
-            <!--<li role="presentation" class="active"><a href="/create">Create AMA</a></li>-->
-            <li role="presentation"><a href="/">Login</a></li>
-            <li role="presentation"><a href="/">Signup</a></li>
-        </ul>
-    </div>
-
+    <th:block th:include="fragments/nav :: nav"></th:block>
     <div class="container">
         <h1>Create AMA</h1>
         <hr/>
