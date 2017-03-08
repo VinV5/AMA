@@ -7,28 +7,17 @@
     <link rel="stylesheet" th:href="@{/css/solo.css}" />
 </head>
 <body>
-        <nav>
-            <ul class="nav nav-pills">
-                <li role="presentation" class="active"><a href="/">Home</a></li>
-                <!--<li role="presentation"><a href="/create">Create AMA</a></li> re-add depending on if it seems intuitive or not later-->
-                <li role="presentation"><a href="/">Login</a></li>
-                <li role="presentation"><a href="/">Signup</a></li>
-            </ul>
-        </nav>
-
+        <th:block th:include="fragments/nav :: nav"></th:block>
         <div class="container">
-
             <div class="row">
-                <a href="/create" class="btn btn-primary pull-right" role="button">Create New AMA</a>
+                <a href="/create" class="btn btn-default pull-right" role="button">Create New AMA</a>
             </div>
             <div class="row">
                 <h1>AMA Requests</h1>
                 <hr/>
             </div>
 
-            <div class="row amalist">
-
-            </div>
+            <div class="row amalist"></div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
