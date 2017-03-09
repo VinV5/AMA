@@ -53,8 +53,6 @@ public class AMAController {
             amaR.addQuestion(new Question(ama.getQuestion()));
             amaRepository.save(amaR);
         }
-//      ama.addQuestion(new Question(ama.getQuestion()));
-        questionRepository.save(new Question(ama.getQuestion()));
         return "AMASoloPage";
     }
 
