@@ -20,7 +20,7 @@
     <span th:text="${ama.category}" />
     <hr/>
 
-   <h1 th:inline="text" id="amaid">
+   <h1 th:inline="text" id="amaid" class="hidden">
         [[${ama.id}]]
     </h1>
 
@@ -30,19 +30,18 @@
     </form>
     <div >
         <h1>Questions List</h1>
-        <button type="button" onclick="loadQuestions();">Show Questions</button>
         <div class="row questionlist">
-
         </div>
     </div>
 
 
 </div>
 
-    <script th:src="@{/js/QuestionsHome.js}"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script th:src="@{/js/solo.js}"></script>
 <script th:src="@{/js/Navigation.js}"></script>
+    <script th:src="@{/js/QuestionsHome.js}"></script>
 </body>
 </html>

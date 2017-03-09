@@ -1,14 +1,16 @@
-function loadQuestions() {
+
     var amaid = $('#amaid').text();
- $.ajax({
+    var list = $('.questionlist');
+    list.empty();
+    $.ajax({
      url: "/ama/"  + amaid + "/questions"
     }).then(function(data){
-            var list = $('.questionlist');
             $.each(data, function(key, value) {
-                var par = '<div class="well">';
-                par += '<p> '+ value.content +'</p>';
-                par += '</div>';
-                list.append(par);
+                if(value.content !== "") {
+                    var par = '<div class="well">';
+                    par += '<p> '+ value.content +'</p>';
+                    par += '</div>';
+                    list.append(par);
+                }
             });
     });
-}

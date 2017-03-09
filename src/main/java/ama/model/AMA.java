@@ -14,11 +14,11 @@ public class AMA extends Rankable {
     protected long id;
     private String question;
     private String description;
-//    @ManyToOne
-//    private User author;
-//    @ManyToOne
-//    private UserGroup authors;
-
+    @ManyToOne
+    private User author;
+    @ManyToOne
+    private UserGroup authors;
+    private int votes;
     @OneToMany(cascade = {CascadeType.ALL})
     public List<Question> questionList;
     private Category category;
