@@ -11,7 +11,7 @@ public class AMA extends Rankable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    protected long id;
     private String question;
     private String description;
 //    @ManyToOne
@@ -19,7 +19,7 @@ public class AMA extends Rankable {
 //    @ManyToOne
 //    private UserGroup authors;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     public List<Question> questionList;
     private Category category;
     private int time;
@@ -44,4 +44,12 @@ public class AMA extends Rankable {
 //    {
 //        this.questionList.add(q);
 //    }
+    public Long getId()
+    {
+        return this.id;
+    }
+    public void addQuestion(Question q)
+    {
+        this.questionList.add(q);
+    }
 }

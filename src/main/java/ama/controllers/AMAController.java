@@ -45,7 +45,15 @@ public class AMAController {
 
     @PostMapping("/qcreate")
     public String createQuestion(@ModelAttribute(name = "ama") AMA ama) {
-//        ama.addQuestion(new Question(ama.getQuestion()));
+
+        if(amaRepository.exists(ama.getId()+1))
+        {
+            AMA amaR = amaRepository.findById(ama.getId()+1);
+            // update the current AMA in repo
+            amaR.addQuestion(new Question(ama.getQuestion()));
+            amaRepository.save(amaR);
+        }
+//      ama.addQuestion(new Question(ama.getQuestion()));
         questionRepository.save(new Question(ama.getQuestion()));
         return "AMASoloPage";
     }
