@@ -33,29 +33,16 @@ public class AMAController {
     public String getCreationPage(Model m) {
         m.addAttribute("questionCategories", Arrays.asList(Category.values()));
         m.addAttribute("ama", new AMA());
+
         return "AMACreationPage";
     }
 
     @PostMapping("/create")
-    public String createAMA(@ModelAttribute(name = "ama") AMA ama) {
+    public String createAMA(@ModelAttribute(name = "ama") AMA ama, Model m) {
         amaRepository.save(ama);
+        m.addAttribute("question", new Question());
         return "AMASoloPage";
     }
-
-
-    @PostMapping("/qcreate")
-    public String createQuestion(@ModelAttribute(name = "ama") AMA ama) {
-
-        if(amaRepository.exists(ama.getId()+1))
-        {
-            AMA amaR = amaRepository.findById(ama.getId()+1);
-            // update the current AMA in repo
-            amaR.addQuestion(new Question(ama.getQuestion()));
-            amaRepository.save(amaR);
-        }
-        return "AMASoloPage";
-    }
-
 
     @GetMapping("/ama/list")
     public @ResponseBody List<AMA> getAMAList() {
@@ -76,6 +63,23 @@ public class AMAController {
     public String getAMA(Model m, @PathVariable long id){
         AMA ama = amaRepository.findById(id);
         m.addAttribute("ama", ama);
+        m.addAttribute("question", new Question());
         return "AMASoloPage";
+    }
+
+    @PostMapping("/ama/{id}/addquestion")
+    public String addAMAQuestion(@ModelAttribute(name = "question") Question temp, Model m, @PathVariable Long id) {
+        m.addAttribute("question", new Question() );
+        AMA ama = amaRepository.findById(id);
+        ama.addQuestion(new Question(temp.getContent()));
+        m.addAttribute("ama", ama);
+        amaRepository.save(ama);
+        return "AMASoloPage";
+    }
+
+    @GetMapping("/ama/{id}/questions")
+    public @ResponseBody List<Question> getAMAQuestions(@PathVariable Long id) {
+        AMA ama = amaRepository.findById(id);
+        return ama.getQuestionList();
     }
 }

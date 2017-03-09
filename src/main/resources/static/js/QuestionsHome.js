@@ -1,7 +1,7 @@
 function loadQuestions() {
-
+    var amaid = $('#amaid').text();
  $.ajax({
-     url: "/ama/list"
+     url: "/ama/"  + amaid + "/questions"
     }).then(function(data){
             var list = $('.questionlist');
             $.each(data, function(key, value) {
@@ -11,5 +11,4 @@ function loadQuestions() {
                 list.append(par);
             });
     });
-
 }
