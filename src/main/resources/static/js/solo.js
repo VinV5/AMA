@@ -3,4 +3,14 @@
  */
 $('.liker').click(function(e) {
     $('.counter').html(function(i, val) { return +val+1 });
+});
+
+$('.question').click(function(e) {
+    var input = $('input');
+    if(input.hasClass('hidden')){
+        e.preventDefault();
+    } else {
+        $(this).unbind('submit').submit();
+    }
+    $('input').toggleClass('hidden');
 })

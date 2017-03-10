@@ -23,18 +23,17 @@
    <h1 th:inline="text" id="amaid" class="hidden">
         [[${ama.id}]]
     </h1>
-
-    <form action="#" th:action="@{@{/ama/} + ${ama.id} + @{/addquestion}}" th:object="${question}"  method="post">
-        <input class="form-control" placeholder="Enter Question" id="title" th:field="*{content}"></input>
-        <button class="btn btn-primary pull-right" type="submit">Ask Question</button>
-    </form>
     <div >
         <h1>Questions List</h1>
         <div class="row questionlist">
         </div>
     </div>
 
-
+    <hr/>
+    <form action="#" th:action="@{@{/ama/} + ${ama.id} + @{/addquestion}}" th:object="${question}"  method="post">
+        <input class="form-control hidden" placeholder="Enter Question" id="title" th:field="*{content}"></input>
+        <button class="btn btn-primary pull-right question" type="submit">Ask Question</button>
+    </form>
 </div>
 
 
