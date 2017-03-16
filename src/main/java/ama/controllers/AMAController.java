@@ -3,6 +3,7 @@ package ama.controllers;
 import ama.model.AMA;
 import ama.model.Category;
 import ama.model.Question;
+import ama.model.UserGroup;
 import ama.repositories.AMARepository;
 import ama.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,10 @@ public class AMAController {
         return "AMAHomePage";
     }
 
-
+    @GetMapping("/group")
+    public String getGroupPage(Model m) {
+        m.addAttribute("groupname", new UserGroup());
+        return "AMAUserGroupPage";
+    }
 
 }

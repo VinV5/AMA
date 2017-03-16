@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Create User Group</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+    <th:block th:include="fragments/nav :: nav"></th:block>
+    <div class="container">
+        <h1>Create User Group</h1>
+        <hr/>
+        <form action="#" th:action="@{/group}" method="post">
+            <div class="form-group">
+            <label for="groupname">Group Name</label>
+            <input class="form-control" placeholder="Enter Group Name" id="groupname" th:field="*{groupname}"></input>
+            </div>
+
+            <button class="btn btn-success pull-right" type="submit">Submit</button>
+        </form>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script th:src="@{/js/Navigation.js}"></script>
+</body>
+</html>
