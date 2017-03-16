@@ -17,6 +17,7 @@ public class Question extends Rankable {
     private long id;
 
     private String content;
+   // private Answer answer;
 
     public Question() {
         this("");
