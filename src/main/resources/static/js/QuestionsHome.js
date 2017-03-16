@@ -16,7 +16,7 @@
                     // par += '<form action="#" th:action="@{@{/ama/} + ${ama.id} + @{/addquestion}}" th:object="${question}"  method="post">';
                     par += '<form action="#" >';
                     par += ' <input class="form-control" placeholder="Enter Answer" id="answerInput"></input>';
-                    par += '<button class="btn btn-primary"> answer </button> ';
+                    par += '<button class="btn btn-primary answer"> answer </button> ';
                     par += '</form>';
                     /*if(value.content)*/
 
