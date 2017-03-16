@@ -1,5 +1,3 @@
-package test;
-
 import ama.model.User;
 import ama.model.UserGroup;
 import org.junit.Test;
