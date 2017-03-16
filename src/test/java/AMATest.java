@@ -1,4 +1,5 @@
 import ama.AMAApplication;
+import ama.model.AMA;
 import ama.model.Question;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +38,14 @@ public class AMATest {
         List<Question> questionList = new ArrayList<>();
         questionList.add(q);
         assertThat(questionList).contains(q);
+    }
+
+    @Test
+    public void testVote() {
+        AMA ama = new AMA();
+        int votes = ama.getVotes();
+        ama.vote();
+        assertThat(ama.getVotes()).isEqualTo(votes + 1);
     }
 
     @Test

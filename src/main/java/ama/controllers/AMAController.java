@@ -84,13 +84,17 @@ public class AMAController {
     }
 
     @RequestMapping("/ama/{id}/delete")
-    public String deleteAMA(@PathVariable Long id)
-    {
+    public String deleteAMA(@PathVariable Long id) {
         amaRepository.delete(id);
 
         return "AMAHomePage";
     }
 
-
-
+    @RequestMapping("/ama/{id}/vote")
+    public @ResponseBody int upVoteAMA(@PathVariable Long id) {
+        AMA ama = amaRepository.findById(id);
+        ama.vote();
+        amaRepository.save(ama);
+        return ama.getVotes();
+    }
 }
