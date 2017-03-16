@@ -33,7 +33,15 @@
                 <input type="number" min="0" id="time-limit" th:field="*{time}"/> Hours
             </div>
 
-
+            <div class="form-group">
+                <label>Select Visibility: </label>
+                <div class="radio-inline">
+                    <label><input type="radio" name="visibility"/>Private</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" name="visibility"/>Public</label>
+                </div>
+            </div>
 
             <button class="btn btn-success pull-right" type="submit">Submit</button>
         </form>
