@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AMA.iml" filepath="$PROJECT_DIR$/.idea/modules/AMA.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AMA_main.iml" filepath="$PROJECT_DIR$/.idea/modules/AMA_main.iml" group="AMA" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AMA_test.iml" filepath="$PROJECT_DIR$/.idea/modules/AMA_test.iml" group="AMA" />
     </modules>
   </component>
 </project>
