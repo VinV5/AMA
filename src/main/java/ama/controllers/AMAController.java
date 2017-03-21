@@ -141,4 +141,8 @@ public class AMAController {
         amaRepository.save(ama);
         return ama.getVotes();
     }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
 }
