@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>AMA Login Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+    <h1 class="col-md-6 col-md-offset-3">Askinator AMA Login</h1>
+
+    <form action="#" th:action="@{/login}" th:object="${user}"  method="post" class="col-md-6 col-md-offset-3">
+
+        <div class="form-group" >
+            <label for="name">User name</label><br/>
+            <input type="text"  class="form-control" name="name" id="name" th:field="*{name}"/>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password </label><br/>
+            <input type="password" class="form-control" name="password" id="password" th:field="*{password}"/>
+        </div>
+
+        <div class="form-group pull-right">
+            <button class="btn btn-success btn-lg" type="submit">Login</button>
+        </div>
+    </form>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
