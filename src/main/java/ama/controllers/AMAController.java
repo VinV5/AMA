@@ -47,8 +47,19 @@ public class AMAController {
 
     @PostMapping("/login")
     public String loginUser(@ModelAttribute("user") User user) {
-        userRepository.save(user);
         return "AMAHomePage";
+    }
+
+    @GetMapping("/signup")
+    public String getSignUpPage(Model m) {
+        m.addAttribute("user", new User());
+        return "AMASignUpPage";
+    }
+
+    @PostMapping("/signup")
+    public String signUpUser(@ModelAttribute("user") User user) {
+        userRepository.save(user);
+        return "AMALoginPage";
     }
 
     @GetMapping("/users/list")

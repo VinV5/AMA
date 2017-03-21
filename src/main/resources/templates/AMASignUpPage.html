@@ -2,14 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>AMA Login Page</title>
+    <title>AMA SignUp Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
 <body>
 <div class="container">
-    <h1 class="col-md-6 col-md-offset-3">Askinator AMA Login</h1>
+    <h1 class="col-md-6 col-md-offset-3">Askinator AMA Signup</h1>
 
-    <form action="#" th:action="@{/login}" th:object="${user}"  method="post" class="col-md-6 col-md-offset-3">
+    <div class="alert alert-danger hidden col-md-6 col-md-offset-3" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+    </div>
+
+    <form action="#" th:action="@{/signup}" th:object="${user}"  method="post" class="col-md-6 col-md-offset-3">
 
         <div class="form-group" >
             <label for="name">User name</label><br/>
@@ -22,13 +27,15 @@
         </div>
 
         <div class="form-group pull-right">
-            <button class="btn btn-success btn-lg" type="submit">Login</button>
+            <button class="btn btn-success btn-lg done" type="submit">Create Account</button>
         </div>
     </form>
+
 
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script th:src="@{/js/validateSignUp.js}"></script>
 </body>
 </html>
