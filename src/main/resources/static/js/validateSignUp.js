@@ -6,10 +6,10 @@
 
 $('.done').click(function(e) {
     e.preventDefault();
-    if($('#name').empty() || $('#password').empty()){
+    if($('#name').val() === '' || $('#password').val() === ''){
         $('.alert').append("The fields cannot be empty");
         $('.alert').removeClass('hidden');
     } else {
-        $(this).unbind('submit').submit();
+        $('.signup').submit();
     }
 })

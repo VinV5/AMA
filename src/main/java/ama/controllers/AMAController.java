@@ -59,7 +59,7 @@ public class AMAController {
     @PostMapping("/signup")
     public String signUpUser(@ModelAttribute("user") User user) {
         userRepository.save(user);
-        return "AMALoginPage";
+        return "AMAHomePage";
     }
 
     @GetMapping("/users/list")
