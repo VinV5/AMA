@@ -1,9 +1,6 @@
 package ama.controllers;
 
-import ama.model.AMA;
-import ama.model.Category;
-import ama.model.Question;
-import ama.model.User;
+import ama.model.*;
 import ama.repositories.AMARepository;
 import ama.repositories.QuestionRepository;
 import ama.repositories.UserRepository;
@@ -12,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,8 +24,11 @@ public class AMAController {
     @Autowired
     private UserRepository userRepository;
 
+    private User currentUser;
+
     @GetMapping("/")
-    public String getHomePage() {
+    public String getHomePage(HttpSession session) {
+        session.setAttribute("currentUser", currentUser);
         return "AMAHomePage";
     }
 
@@ -41,12 +42,23 @@ public class AMAController {
 
     @GetMapping("/login")
     public String getLoginPage(Model m) {
+        if (currentUser != null)
+            return "AMAHomePage";
         m.addAttribute("user", new User());
         return "AMALoginPage";
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute("user") User user) {
+    public String loginUser(@ModelAttribute("user") User user, HttpSession session) {
+        currentUser = user;
+        session.setAttribute("currentUser", currentUser);
+        return "AMAHomePage";
+    }
+
+    @RequestMapping("/logout")
+    public String logoutUser(HttpSession session) {
+        currentUser = null;
+        session.setAttribute("currentUser", currentUser);
         return "AMAHomePage";
     }
 
