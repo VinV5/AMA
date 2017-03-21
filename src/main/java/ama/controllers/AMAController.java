@@ -1,9 +1,11 @@
 package ama.controllers;
 
 import ama.model.AMA;
+import ama.model.Answer;
 import ama.model.Category;
 import ama.model.Question;
 import ama.repositories.AMARepository;
+import ama.repositories.AnswerRepository;
 import ama.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -23,6 +25,8 @@ public class AMAController {
     @Autowired
     private QuestionRepository questionRepository;
     private Long id;
+    @Autowired
+    private AnswerRepository answerRepository;
 
     @GetMapping("/")
     public String getHomePage() {
@@ -41,6 +45,7 @@ public class AMAController {
     public String createAMA(@ModelAttribute(name = "ama") AMA ama, Model m) {
         amaRepository.save(ama);
         m.addAttribute("question", new Question());
+        m.addAttribute("answer", new Answer());
         return "AMASoloPage";
     }
 
@@ -64,6 +69,7 @@ public class AMAController {
         AMA ama = amaRepository.findById(id);
         m.addAttribute("ama", ama);
         m.addAttribute("question", new Question());
+        m.addAttribute("answer", new Answer());
         return "AMASoloPage";
     }
 
@@ -73,6 +79,7 @@ public class AMAController {
         AMA ama = amaRepository.findById(id);
         ama.addQuestion(new Question(temp.getContent()));
         m.addAttribute("ama", ama);
+        m.addAttribute("answer", new Answer());
         amaRepository.save(ama);
         return "AMASoloPage";
     }
@@ -82,4 +89,10 @@ public class AMAController {
         AMA ama = amaRepository.findById(id);
         return ama.getQuestionList();
     }
+    @GetMapping("/ama/{id}/answer")
+    public @ResponseBody List<Answer> getQuestionAnswer(@PathVariable Long id) {
+        AMA ama = amaRepository.findById(id);
+        return ama.getQuestion(id).getAnswerList();
+    }
+
 }

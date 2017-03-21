@@ -36,9 +36,10 @@ public class AMA extends Rankable {
         //this.author = author;
         this.description = description;
     }
-    public String getQuestion()
+    public Question getQuestion(Long l)
     {
-        return this.question;
+        int y = l.intValue();
+        return this.questionList.get(y);
     }
 //    public void addQuestion(Question q)
 //    {
