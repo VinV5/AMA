@@ -30,8 +30,8 @@
 
     <hr/>
     <form action="#" th:action="@{@{/ama/} + ${ama.id} + @{/addanswer}}" th:object="${answer}"  method="post">
-        <input class="form-control hidden" placeholder="Enter Question" id="title" th:field="*{content}"></input>
-        <button class="btn btn-primary pull-right question"  type="submit">Ask Question</button>
+        <input class="form-control hidden" placeholder="Enter Answer" id="title" th:field="*{content}"></input>
+        <button class="btn btn-primary pull-right question"  type="submit">Answer</button>
     </form>
 </div>
 
@@ -40,6 +40,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script th:src="@{/js/ButtonController.js}"></script>
 <script th:src="@{/js/Navigation.js}"></script>
-<script th:src="@{/js/QuestionsHome.js}"></script>
+<script th:src="@{/js/AnswerHome.js}"></script>
 </body>
 </html>

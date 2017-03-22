@@ -10,7 +10,7 @@
             $.each(data, function(key, value) {
                 if(value.content !== "") {
                  var par = '<div class="well">';
-                    par += '<p><a href="question/'+value.id+'">'+ value.content +'</a></p>';
+                    par += '<p><a href="'+amaid+'/question/'+value.id+'">'+ value.content +'</a>QuestionHome</p>';
                     par += '</div>';
                     list.append(par);
                 }// end if

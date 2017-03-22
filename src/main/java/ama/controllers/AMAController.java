@@ -72,6 +72,15 @@ public class AMAController {
         m.addAttribute("answer", new Answer());
         return "AMASoloPage";
     }
+    @GetMapping("/ama/{id}/question/{id2}")
+    public String getQuestion(Model m, @PathVariable long id,@PathVariable long id2){
+        AMA ama = amaRepository.findById(id);
+        Question question = ama.getQuestion(id2-1);
+        m.addAttribute("ama", ama);
+        m.addAttribute("question", question);
+        m.addAttribute("answer", new Answer());
+        return "QuestionSoloPage";
+    }
 
     @PostMapping("/ama/{id}/addquestion")
     public String addAMAQuestion(@ModelAttribute(name = "question") Question temp, Model m, @PathVariable Long id) {
@@ -82,6 +91,20 @@ public class AMAController {
         m.addAttribute("answer", new Answer());
         amaRepository.save(ama);
         return "AMASoloPage";
+    }
+
+    @PostMapping("/ama/{id}/addanswer")
+    public String addQuestionAnswer(@ModelAttribute(name = "answer") Answer temp, Model m, @PathVariable Long id) {
+        Answer answer = temp;
+        AMA ama = amaRepository.findById(id);
+        Question question = ama.getQuestion(id-1);
+        question.addAnswer(answer);
+        ama.addQuestion(question);
+        m.addAttribute("ama", ama);
+        m.addAttribute("question",question);
+        m.addAttribute("answer",answer);
+        amaRepository.save(ama);
+        return "QuestionSoloPage";
     }
 
     @GetMapping("/ama/{id}/questions")
