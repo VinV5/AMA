@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Question extends Rankable {
+public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
