@@ -35,14 +35,20 @@ public class LoginTest {
 
     private User user;
 
+    private User user2;
+
     @Autowired
     private HttpSession httpSession;
 
     @Before
     public void setUp() {
         user = new User();
-        user.setId(0);
         user.setName("hello");
+        user.setPassword("password");
+        amaController.signUpUser(user);
+
+        user2 = new User();
+        user2.setName("user2");
         user.setPassword("password");
     }
 
@@ -54,5 +60,16 @@ public class LoginTest {
         amaController.logoutUser(httpSession);
         assertThat(httpSession.getAttribute("currentUser")).isEqualTo(null);
         assertThat(amaController.getCurrentUser()).isEqualTo(null);
+    }
+
+    @Test
+    public void testLoginValidation() {
+        amaController.loginUser(user2, httpSession);
+        assertThat(httpSession.getAttribute("currentUser")).isEqualTo(null);
+        assertThat(amaController.getCurrentUser()).isEqualTo(null);
+        amaController.signUpUser(user2);
+        amaController.loginUser(user2, httpSession);
+        assertThat(httpSession.getAttribute("currentUser")).isEqualTo(user2);
+        assertThat(amaController.getCurrentUser()).isEqualTo(user2);
     }
 }
