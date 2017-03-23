@@ -50,7 +50,10 @@ public class AMAController {
 
     @PostMapping("/login")
     public String loginUser(@ModelAttribute("user") User user, HttpSession session) {
-        currentUser = user;
+        if (userRepository.findByName(user.getName()) != null)
+            currentUser = user;
+        else
+            currentUser = null;
         session.setAttribute("currentUser", currentUser);
         return "AMAHomePage";
     }
