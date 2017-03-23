@@ -72,17 +72,7 @@ public class AMAController {
         m.addAttribute("answer", new Answer());
         return "AMASoloPage";
     }
-    @GetMapping("/ama/{id}/question/{id2}")
-    public String getQuestion(Model m, @PathVariable long id,@PathVariable long id2){
-        AMA ama = amaRepository.findById(id);
-        Question question = ama.getQuestion(id2-1);
-        m.addAttribute("ama", ama);
-        m.addAttribute("question", question);
-        m.addAttribute("answer", new Answer());
-        return "QuestionSoloPage";
-    }
-
-    @PostMapping("/ama/{id}/addquestion")
+    @PostMapping("/ama/{id}")
     public String addAMAQuestion(@ModelAttribute(name = "question") Question temp, Model m, @PathVariable Long id) {
         m.addAttribute("question", new Question() );
         AMA ama = amaRepository.findById(id);
@@ -92,14 +82,23 @@ public class AMAController {
         amaRepository.save(ama);
         return "AMASoloPage";
     }
-
-    @PostMapping("/ama/{id}/addanswer")
-    public String addQuestionAnswer(@ModelAttribute(name = "answer") Answer temp, Model m, @PathVariable Long id) {
-        Answer answer = temp;
+    @GetMapping("/ama/{id}/question/{qID}")
+    public String getQuestion(Model m, @PathVariable long id,@PathVariable long qID){
         AMA ama = amaRepository.findById(id);
-        Question question = ama.getQuestion(id-1);
+        Question question = questionRepository.findById(qID);
+        m.addAttribute("ama", ama);
+        m.addAttribute("question", question);
+        m.addAttribute("answer", new Answer());
+        return "QuestionSoloPage";
+    }
+
+
+    @PostMapping("/ama/{id}/question/{qID}")
+    public String addQuestionAnswer(@ModelAttribute(name = "answer") Answer temp, Model m, @PathVariable Long id,@PathVariable Long qID) {
+        Answer answer = new Answer(temp.getContent());
+        AMA ama = amaRepository.findById(id);
+        Question question = questionRepository.findById(qID);
         question.addAnswer(answer);
-        ama.addQuestion(question);
         m.addAttribute("ama", ama);
         m.addAttribute("question",question);
         m.addAttribute("answer",answer);
@@ -112,10 +111,11 @@ public class AMAController {
         AMA ama = amaRepository.findById(id);
         return ama.getQuestionList();
     }
-    @GetMapping("/ama/{id}/answer")
-    public @ResponseBody List<Answer> getQuestionAnswer(@PathVariable Long id) {
+    @GetMapping("/ama/{id}/question/{qID}/answers")
+    public @ResponseBody List<Answer> getQuestionAnswer(@PathVariable Long id,@PathVariable Long qID) {
         AMA ama = amaRepository.findById(id);
-        return ama.getQuestion(id).getAnswerList();
+        Question qL = questionRepository.findById(qID);
+        return qL.getAnswerList();
     }
 
 }

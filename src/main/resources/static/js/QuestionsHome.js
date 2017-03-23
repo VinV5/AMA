@@ -1,5 +1,5 @@
 
-    var amaid = $('#amaid').text();
+    var amaid = $('#amaid').text().trim();
     var list = $('.questionlist');
     list.empty();
 
@@ -13,6 +13,7 @@
                     par += '<p><a href="'+amaid+'/question/'+value.id+'">'+ value.content +'</a>QuestionHome</p>';
                     par += '</div>';
                     list.append(par);
+                    console.log(value.id);
                 }// end if
             });// end  each loop
     });// end data function
