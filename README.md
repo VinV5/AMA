@@ -22,3 +22,12 @@ rank of the AMA/question accordingly.
 * Ability to submit an AMA and question
 
 Plan for next sprint: User accounts, AMA/question functionality polished, voting system working
+
+## Milestone 2
+
+* Tests added
+* User sign-up
+* User Login
+* Question and Answer feature working
+
+Plan for next sprint: Signup+Login validation, Upvote persistence, working user group.
