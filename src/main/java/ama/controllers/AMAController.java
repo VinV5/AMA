@@ -1,17 +1,15 @@
 package ama.controllers;
 
-import ama.model.AMA;
-import ama.model.Category;
-import ama.model.Question;
-import ama.model.UserGroup;
+import ama.model.*;
 import ama.repositories.AMARepository;
 import ama.repositories.QuestionRepository;
+import ama.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,10 +21,14 @@ public class AMAController {
     private AMARepository amaRepository;
     @Autowired
     private QuestionRepository questionRepository;
-    private Long id;
+    @Autowired
+    private UserRepository userRepository;
+
+    private User currentUser;
 
     @GetMapping("/")
-    public String getHomePage() {
+    public String getHomePage(HttpSession session) {
+        session.setAttribute("currentUser", currentUser);
         return "AMAHomePage";
     }
 
@@ -36,6 +38,47 @@ public class AMAController {
         m.addAttribute("ama", new AMA());
 
         return "AMACreationPage";
+    }
+
+    @GetMapping("/login")
+    public String getLoginPage(Model m) {
+        if (currentUser != null)
+            return "AMAHomePage";
+        m.addAttribute("user", new User());
+        return "AMALoginPage";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@ModelAttribute("user") User user, HttpSession session) {
+        currentUser = user;
+        session.setAttribute("currentUser", currentUser);
+        return "AMAHomePage";
+    }
+
+    @RequestMapping("/logout")
+    public String logoutUser(HttpSession session) {
+        currentUser = null;
+        session.setAttribute("currentUser", currentUser);
+        return "AMAHomePage";
+    }
+
+    @GetMapping("/signup")
+    public String getSignUpPage(Model m) {
+        m.addAttribute("user", new User());
+        return "AMASignUpPage";
+    }
+
+    @PostMapping("/signup")
+    public String signUpUser(@ModelAttribute("user") User user) {
+        userRepository.save(user);
+        return "AMAHomePage";
+    }
+
+    @GetMapping("/users/list")
+    public @ResponseBody List<User> getUserList() {
+        List<User> userList = new ArrayList<>();
+        userRepository.findAll().forEach(q -> userList.add(q));
+        return userList;
     }
 
     @PostMapping("/create")
@@ -85,8 +128,7 @@ public class AMAController {
     }
 
     @RequestMapping("/ama/{id}/delete")
-    public String deleteAMA(@PathVariable Long id)
-    {
+    public String deleteAMA(@PathVariable Long id) {
         amaRepository.delete(id);
 
         return "AMAHomePage";
@@ -98,4 +140,15 @@ public class AMAController {
         return "AMAUserGroupPage";
     }
 
+    @RequestMapping("/ama/{id}/vote")
+    public @ResponseBody int upVoteAMA(@PathVariable Long id) {
+        AMA ama = amaRepository.findById(id);
+        ama.vote();
+        amaRepository.save(ama);
+        return ama.getVotes();
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
 }

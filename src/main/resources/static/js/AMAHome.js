@@ -13,7 +13,16 @@
                    par += '<p><a href="ama/' + value.id + '">' +  value.description+ '</a></p>'
                    par += '</div>';
                    list.append(par);
-
                });
 
            });
+    
+    function vote(id) {
+        var votes;
+        $.ajax({
+            url: "ama/" + id + "/vote"
+        }).then(function(data){
+            votes = data;
+        });
+        return votes;
+    }

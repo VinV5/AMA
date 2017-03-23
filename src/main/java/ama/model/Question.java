@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class Question extends Rankable {
+public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -15,13 +15,13 @@ public class User {
     private long id;
 
     private String name;
+    private String password;
 
     @ManyToMany
     @JoinColumn(name="Group_id")
     private List<UserGroup> groups;
 
     public User() {
-        this("NoName");
     }
 
     public User(String name) {
