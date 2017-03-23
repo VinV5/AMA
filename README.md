@@ -23,7 +23,7 @@ rank of the AMA/question accordingly.
 
 Plan for next sprint: User accounts, AMA/question functionality polished, voting system working
 
-## Milestone 2
+## Milestone 2 - Alpha Release
 
 * Tests added
 * User sign-up
