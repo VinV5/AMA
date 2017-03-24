@@ -16,3 +16,6 @@ deploy:
   api_key:
     secure: "$HEROKU_KEY"
   app: askinator
+  
+notifications:
+  email: false
