@@ -11,11 +11,9 @@
     <th:block th:include="fragments/nav :: nav"></th:block>
 <div class="container">
 
-    <form action="#" th:action="@{@{/ama/} + ${ama.id} + @{/addvote}}" method="post">
+    <form action="#" th:action="@{@{/ama/} + ${ama.id} + @{/addvote}}" method="post" class="upvoter">
         <div class="vote">
-            <button class="liker">
-                <span class="glyphicon glyphicon-circle-arrow-up block" aria-hidden="true"></span>
-            </button>
+            <span class="glyphicon glyphicon-circle-arrow-up block liker" aria-hidden="true"></span>
             <span class="counter block" th:text="${ama.votes}"></span>
         </div>
     </form>
@@ -48,5 +46,10 @@
 <script th:src="@{/js/solo.js}"></script>
 <script th:src="@{/js/Navigation.js}"></script>
     <script th:src="@{/js/QuestionsHome.js}"></script>
+    <script>
+        $('.liker').click(function(e) {
+            $('.upvoter').submit();
+        })
+    </script>
 </body>
 </html>

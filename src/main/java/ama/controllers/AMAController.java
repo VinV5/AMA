@@ -12,12 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 
 @Controller
+@SessionAttributes("user")
 public class AMAController {
     @Autowired
     private AMARepository amaRepository;
@@ -25,6 +24,7 @@ public class AMAController {
     private QuestionRepository questionRepository;
     @Autowired
     private UserRepository userRepository;
+    private Map<Long, Set<User>> amaUpvoters = new HashMap<>();
 
     @GetMapping("/")
     public String getHomePage() {
@@ -123,16 +123,27 @@ public class AMAController {
     }
 
     @RequestMapping("/ama/{id}/vote")
-    public @ResponseBody int upVoteAMA(@PathVariable Long id) {
+    public @ResponseBody int upVoteAMA( @PathVariable Long id, @ModelAttribute("user") User user) {
         AMA ama = amaRepository.findById(id);
-        ama.vote();
-        amaRepository.save(ama);
+        if(amaUpvoters.containsKey(id)) {
+            Set<User> upvoters = amaUpvoters.get(id);
+            if(!upvoters.contains(user)) {
+                upvoters.add(user);
+                ama.vote();
+                amaRepository.save(ama);
+            }
+        } else {
+            amaUpvoters.put(id, new HashSet<>());
+            amaUpvoters.get(id).add(user);
+            ama.vote();
+            amaRepository.save(ama);
+        }
         return ama.getVotes();
     }
 
     @PostMapping("/ama/{id}/addvote")
-    public String addAMAVote(@PathVariable Long id, Model m) {
-        upVoteAMA(id);
+    public String addAMAVote(@PathVariable Long id, Model m, @ModelAttribute("user") User user) {
+        upVoteAMA(id, user);
         AMA ama = amaRepository.findById(id);
         m.addAttribute("question", new Question() );
         m.addAttribute("ama", ama);
