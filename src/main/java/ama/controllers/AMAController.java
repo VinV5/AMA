@@ -129,4 +129,15 @@ public class AMAController {
         amaRepository.save(ama);
         return ama.getVotes();
     }
+
+    @PostMapping("/ama/{id}/addvote")
+    public String addAMAVote(@PathVariable Long id, Model m) {
+        upVoteAMA(id);
+        AMA ama = amaRepository.findById(id);
+        m.addAttribute("question", new Question() );
+        m.addAttribute("ama", ama);
+        return "AMASoloPage";
+    }
+
+
 }

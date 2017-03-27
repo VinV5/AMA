@@ -9,7 +9,7 @@
                    var par = '<div class="well well-lg">'
                    par += '<div class="vote test">'
                    par +=    '<span class="glyphicon glyphicon-circle-arrow-up liker block" aria-hidden="true"></span>'
-                   par +=   '<span class="counter block">0</span> </div>'
+                   par +=   '<span class="counter block">' + value.votes + '</span> </div>'
                    par += '<p><a href="ama/' + value.id + '">' +  value.description+ '</a></p>'
                    par += '</div>';
                    list.append(par);

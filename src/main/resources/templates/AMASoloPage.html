@@ -10,10 +10,16 @@
 
     <th:block th:include="fragments/nav :: nav"></th:block>
 <div class="container">
-    <div class="vote">
-        <span class="glyphicon glyphicon-circle-arrow-up liker block" aria-hidden="true"></span>
-        <span class="counter block">0</span>
-    </div>
+
+    <form action="#" th:action="@{@{/ama/} + ${ama.id} + @{/addvote}}" method="post">
+        <div class="vote">
+            <button class="liker">
+                <span class="glyphicon glyphicon-circle-arrow-up block" aria-hidden="true"></span>
+            </button>
+            <span class="counter block" th:text="${ama.votes}"></span>
+        </div>
+    </form>
+
     <h3 th:inline="text" >
         [[${ama.description}]]
     </h3>
