@@ -46,9 +46,10 @@
 <script th:src="@{/js/solo.js}"></script>
 <script th:src="@{/js/Navigation.js}"></script>
     <script th:src="@{/js/QuestionsHome.js}"></script>
-    <script>
+    <script th:inline="javascript">
         $('.liker').click(function(e) {
-            $('.upvoter').submit();
+           let user = [[${user}]];
+           if(user !== null) $('.upvoter').submit();
         })
     </script>
 </body>
