@@ -5,7 +5,9 @@ public enum Category {
     Personal("Personal"),
     Weird("Weird"),
     Education("Education"),
-    Random("Random");
+    Random("Random"),
+    Awesome("Awesome"),
+    Monkey_Business("Monkey Business");
 
     private final String value;
 

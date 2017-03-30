@@ -1,6 +1,7 @@
 package ama;
 
 import ama.model.AMA;
+import ama.model.Category;
 import ama.model.User;
 import ama.repositories.AMARepository;
 import ama.repositories.UserRepository;
@@ -28,10 +29,14 @@ public class AMAApplication {
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
-            //User a = new User("Ahmad");
-            AMA ama = new AMA( "hi");
-            //userRepository.save(a);
+            AMA ama = new AMA( "I am the Monkey Man, I like causing monkey trouble. AMA");
+            ama.setCategory(Category.Monkey_Business);
+
+            AMA ama2 = new AMA( "Hey, it's me Pandora, Harbinger of doom and all AMA");
+            ama2.setCategory(Category.Awesome);
+            ama2.setVotes(2);
             amaRepository.save(ama);
+            amaRepository.save(ama2);
         };
     }
 
