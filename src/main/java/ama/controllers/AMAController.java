@@ -1,9 +1,6 @@
 package ama.controllers;
 
-import ama.model.AMA;
-import ama.model.Category;
-import ama.model.Question;
-import ama.model.User;
+import ama.model.*;
 import ama.repositories.AMARepository;
 import ama.repositories.QuestionRepository;
 import ama.repositories.UserRepository;
@@ -13,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-
+import javax.servlet.http.HttpSession;
 
 @Controller
 @SessionAttributes("user")
@@ -26,8 +23,11 @@ public class AMAController {
     private UserRepository userRepository;
     private Map<Long, Set<User>> amaUpvoters = new HashMap<>();
 
+    private User currentUser;
+
     @GetMapping("/")
-    public String getHomePage() {
+    public String getHomePage(HttpSession session) {
+        session.setAttribute("currentUser", currentUser);
         return "AMAHomePage";
     }
 
@@ -41,12 +41,26 @@ public class AMAController {
 
     @GetMapping("/login")
     public String getLoginPage(Model m) {
+        if (currentUser != null)
+            return "AMAHomePage";
         m.addAttribute("user", new User());
         return "AMALoginPage";
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute("user") User user) {
+    public String loginUser(@ModelAttribute("user") User user, HttpSession session) {
+        if (userRepository.findByName(user.getName()) != null)
+            currentUser = user;
+        else
+            currentUser = null;
+        session.setAttribute("currentUser", currentUser);
+        return "AMAHomePage";
+    }
+
+    @RequestMapping("/logout")
+    public String logoutUser(HttpSession session) {
+        currentUser = null;
+        session.setAttribute("currentUser", currentUser);
         return "AMAHomePage";
     }
 
@@ -150,5 +164,7 @@ public class AMAController {
         return "AMASoloPage";
     }
 
-
+    public User getCurrentUser() {
+        return currentUser;
+    }
 }
