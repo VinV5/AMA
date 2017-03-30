@@ -25,7 +25,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 @SpringBootTest(classes = AMAApplication.class)
 @AutoConfigureMockMvc
 
-public class LoginTest {
+public class Login_Logout_Test {
 
     @Autowired
     private MockMvc mockMvc;
