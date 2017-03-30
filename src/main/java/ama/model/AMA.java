@@ -3,6 +3,7 @@ package ama.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,8 +23,7 @@ public class AMA {
 
     private int votes;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-
+    @OneToMany( cascade = {CascadeType.ALL})
     public List<Question> questionList;
 
     private Category category;
@@ -31,10 +31,11 @@ public class AMA {
     private int time;
 
     public AMA() {
-
+        this.questionList = new ArrayList<>();
     }
 
     public AMA(String description) {
+        this.questionList = new ArrayList<>();
         this.description = description;
     }
     public Question getQuestion(Long l)

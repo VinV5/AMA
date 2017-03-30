@@ -1,6 +1,9 @@
 import ama.AMAApplication;
 import ama.model.AMA;
 import ama.model.Question;
+import ama.repositories.AMARepository;
+import org.hibernate.Hibernate;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -32,6 +39,15 @@ public class AMATest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    AMARepository amaRepository;
+
+    @Autowired
+    WebApplicationContext app;
+    @Before
+    public void setup(){
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.app).build();
+    }
     @Test
     public void testAddQuestion() {
         Question q = new Question();
@@ -54,5 +70,12 @@ public class AMATest {
         mockMvc.perform(get("ama/1")).andExpect(status().isNotFound()).andReturn();
     }
 
+    @Test
+    public void answerAMA()throws Exception{
+        MvcResult result = mockMvc.perform(get("/ama/1/question/1")).andReturn();
+        System.out.println(result.getResponse().getContentAsString());
+        String sResult = result.getResponse().getContentAsString();
+        sResult.contains("bye");
+    }
 
 }

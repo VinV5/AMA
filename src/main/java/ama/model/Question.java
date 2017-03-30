@@ -3,6 +3,7 @@ package ama.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,9 +23,11 @@ public class Question {
 
     public Question() {
         this("");
+        this.answerList = new ArrayList<>();
     }
 
     public Question(String content) {
+        this.answerList = new ArrayList<>();
         this.content = content;
     }
 

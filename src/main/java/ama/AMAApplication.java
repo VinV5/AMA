@@ -1,9 +1,12 @@
 package ama;
 
 import ama.model.AMA;
+import ama.model.Answer;
+import ama.model.Question;
 import ama.model.User;
 import ama.repositories.AMARepository;
 import ama.repositories.UserRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,6 +33,13 @@ public class AMAApplication {
         return (args) -> {
             //User a = new User("Ahmad");
             AMA ama = new AMA( "hi");
+            Hibernate.initialize(ama.questionList);
+            Question q = new Question("hello");
+            Answer a = new Answer("bye");
+            Hibernate.initialize(q.answerList);
+            q.addAnswer(a);
+            ama.addQuestion(q);
+
             //userRepository.save(a);
             amaRepository.save(ama);
         };
