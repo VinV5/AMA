@@ -1,8 +1,11 @@
 import ama.AMAApplication;
 import ama.model.AMA;
+import ama.model.Answer;
 import ama.model.Question;
 import ama.repositories.AMARepository;
+import ama.repositories.QuestionRepository;
 import org.hibernate.Hibernate;
+import org.hibernate.SynchronizeableQuery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,6 +46,9 @@ public class AMATest {
     AMARepository amaRepository;
 
     @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
     WebApplicationContext app;
     @Before
     public void setup(){
@@ -66,16 +72,15 @@ public class AMATest {
 
     @Test
     public void deleteAMA() throws Exception {
-        mockMvc.perform(get("/ama/1/delete")).andReturn();
-        mockMvc.perform(get("ama/1")).andExpect(status().isNotFound()).andReturn();
+        AMA ama = new AMA();
+        amaRepository.save(ama);
+        mockMvc.perform(get("/ama/" + ama.getId() + "/delete")).andReturn();
+        mockMvc.perform(get("ama/" + ama.getId())).andExpect(status().isNotFound()).andReturn();
     }
 
     @Test
     public void answerAMA()throws Exception{
-        MvcResult result = mockMvc.perform(get("/ama/1/question/1")).andReturn();
-        System.out.println(result.getResponse().getContentAsString());
-        String sResult = result.getResponse().getContentAsString();
-        sResult.contains("bye");
+        assertThat(amaRepository.findById(1l).getQuestionList().get(0).getAnswerList().get(0).getContent()).contains("bye");
     }
 
 }

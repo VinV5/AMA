@@ -31,16 +31,11 @@ public class AMAApplication {
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
-            //User a = new User("Ahmad");
             AMA ama = new AMA( "hi");
-            Hibernate.initialize(ama.questionList);
-            Question q = new Question("hello");
-            Answer a = new Answer("bye");
-            Hibernate.initialize(q.answerList);
+            Question q = new Question("hello", ama);
+            Answer a = new Answer("bye", q);
             q.addAnswer(a);
             ama.addQuestion(q);
-
-            //userRepository.save(a);
             amaRepository.save(ama);
         };
     }

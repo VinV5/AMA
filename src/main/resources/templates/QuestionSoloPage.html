@@ -13,8 +13,8 @@
         <span class="glyphicon glyphicon-circle-arrow-up liker block" aria-hidden="true"></span>
         <span class="counter block">0</span>
     </div>
-    <h3 th:inline="text" >
-        [[${question.content}]]
+    <h3 th:text="${question.content}" >
+
     </h3>
     <span th:text="${ama.category}" />
     <hr/>

@@ -1,11 +1,14 @@
 package ama.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
 
 @Entity
 @Data
@@ -15,30 +18,31 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    public List<Answer> answerList;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "question")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Answer> answerList;
+
+    @ManyToOne
+    @JoinColumn(name = "ama_id")
+    private AMA ama;
 
     private String content;
-   // private Answer answer;
 
     public Question() {
         this("");
-        this.answerList = new ArrayList<>();
     }
 
     public Question(String content) {
-        this.answerList = new ArrayList<>();
-        this.content = content;
+        this(content, null);
     }
 
-    public Long getId(){
-        return this.id;
+    public Question(String content, AMA ama) {
+        this.content = content;
+        this.ama = ama;
+        this.answerList = new ArrayList<>();
     }
+
     public void addAnswer(Answer a){
-        this.answerList.add(a);
-    }
-    public Answer getAnswer(Long l){
-        int y = l.intValue();
-        return this.answerList.get(y);
+        answerList.add(a);
     }
 }
