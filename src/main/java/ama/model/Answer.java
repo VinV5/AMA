@@ -1,4 +1,7 @@
 package ama.model;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import javax.persistence.*;
 
@@ -7,6 +10,10 @@ import javax.persistence.*;
 */
 @Entity
 @Data
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 public class Answer {
 
     @Id
@@ -15,6 +22,7 @@ public class Answer {
     private String content;
     @ManyToOne
     @JoinColumn(name = "question_id")
+    @JsonManagedReference
     private Question question;
 
     public Answer() {

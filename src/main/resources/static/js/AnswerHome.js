@@ -1,6 +1,8 @@
 /**
  * Created by ahmadholpa on 3/2/2017.
- */    var amaid = $('#amaid').text().trim();
+ */
+
+    var amaid = $('#amaid').text().trim();
     var questionid = $('#questionid').text().trim();
 
     var list = $('.answerlist');

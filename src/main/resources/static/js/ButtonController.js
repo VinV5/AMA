@@ -11,4 +11,4 @@ $('.question').click(function(e) {
         $(this).unbind('submit').submit();
     }
     input.toggleClass('hidden');
-})
+});

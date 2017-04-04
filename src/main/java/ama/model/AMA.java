@@ -1,5 +1,6 @@
 package ama.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -34,6 +35,7 @@ public class AMA {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ama")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonBackReference
     private List<Question> questionList;
 
     private Category category;
@@ -50,7 +52,7 @@ public class AMA {
     }
 
     public void addQuestion(Question q) {
-        this.questionList.add(q);
+        questionList.add(q);
     }
 
     public void vote() {

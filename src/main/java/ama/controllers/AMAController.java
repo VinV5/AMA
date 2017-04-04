@@ -119,11 +119,12 @@ public class AMAController {
         return "AMASoloPage";
     }
 
-    @PostMapping("/ama/{id}/addquestion")
+    @PostMapping("/ama/{id}")
     public String addAMAQuestion(@ModelAttribute(name = "question") Question temp, Model m, @PathVariable Long id) {
-        m.addAttribute("question", new Question() );
         AMA ama = amaRepository.findById(id);
-        ama.addQuestion(new Question(temp.getContent()));
+        Question question = new Question(temp.getContent(), ama);
+        ama.addQuestion(question);
+        m.addAttribute("question", question);
         m.addAttribute("ama", ama);
         m.addAttribute("answer", new Answer());
         amaRepository.save(ama);

@@ -31,7 +31,7 @@
     </div>
 
     <hr/>
-    <form action="#" th:action="@{@{/ama/} + ${ama.id} +@{/question/}+${question.id}}" th:object="${answer}"  method="post">
+    <form action="#" th:action="@{@{/ama/} + ${ama.id} }" th:object="${question}"  method="post">
         <input class="form-control hidden" placeholder="Enter Answer" id="title" th:field="*{content}"></input>
         <button class="btn btn-primary pull-right question"  type="submit">Answer</button>
     </form>
