@@ -16,11 +16,13 @@
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/">Home</a></li>
-                    <li class="active"><a href="/"><p th:text="${session.currentUser.name}" th:unless="${session.currentUser == null}">[...]</p></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+                    <li th:unless="${user}"><a href="/signup"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
+                    <li th:unless="${user}"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li th:if="${user}"><a href="#" th:inline="text"><span class="glyphicon glyphicon-user" />[[${user.name}]]</a></li>
+                    <li th:if="${user}"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                 </ul>
             </div>
         </nav>

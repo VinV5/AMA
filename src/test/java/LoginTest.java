@@ -57,7 +57,7 @@ public class LoginTest {
         amaController.loginUser(user, httpSession);
         assertThat(httpSession.getAttribute("currentUser")).isEqualTo(user);
         assertThat(amaController.getCurrentUser()).isEqualTo(user);
-        amaController.logoutUser(httpSession);
+        /*amaController.logoutUser(httpSession);*/
         assertThat(httpSession.getAttribute("currentUser")).isEqualTo(null);
         assertThat(amaController.getCurrentUser()).isEqualTo(null);
     }

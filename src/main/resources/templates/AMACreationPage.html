@@ -14,7 +14,7 @@
 
             <div class="form-group" >
                 <label for="title">AMA Title</label>
-                <input class="form-control" placeholder="Enter AMA Title" id="title" th:field="*{description}"></input>
+                <input required="required" class="form-control" placeholder="Enter AMA Title" id="title" th:field="*{description}"></input>
 
                 <hr/>
             </div>
@@ -27,11 +27,11 @@
                     </th:block>
                 </select>
             </div>
-            
-            <div class="form-group">
+
+            <!--<div class="form-group">
                 <label for="time-limit">Set Time Limit: </label>
                 <input type="number" min="0" id="time-limit" th:field="*{time}"/> Hours
-            </div>
+            </div>-->
 
             <input type="hidden" th:field="*{votes}" th:value="0"/>
 
