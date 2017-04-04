@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.*;
 import javax.servlet.http.HttpSession;
@@ -46,8 +47,8 @@ public class AMAController {
 
     @GetMapping("/login")
     public String getLoginPage(Model m) {
-        if (currentUser != null)
-            return "AMAHomePage";
+        /*if (currentUser != null)
+            return "AMAHomePage";*/
         m.addAttribute("user", new User());
         return "AMALoginPage";
     }
@@ -63,9 +64,9 @@ public class AMAController {
     }
 
     @RequestMapping("/logout")
-    public String logoutUser(HttpSession session) {
-        currentUser = null;
-        session.setAttribute("currentUser", currentUser);
+    public String logoutUser(HttpSession session, Model model) {
+        session.invalidate();
+        if(model.containsAttribute("user")) model.asMap().remove("user");
         return "AMAHomePage";
     }
 
