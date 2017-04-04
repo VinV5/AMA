@@ -31,7 +31,7 @@ public class AMA {
     @ManyToOne
     private UserGroup authors;
 
-    private int votes;
+    private int votes = 0;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ama")
     @LazyCollection(LazyCollectionOption.FALSE)

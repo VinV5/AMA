@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+<body>
+    <div th:fragment="amaItem">
+        <div class="well well-lg">
+            <div class="vote test">
+                <span class="glyphicon glyphicon-circle-arrow-up liker block"></span>
+                <span class="counter block" th:text="${ama.votes}"></span>
+            </div>
+                <p><a th:href="@{ama/} + ${ama.id}" th:text="${ama.description}"></a></p>
+        </div>
+    </div>
+
+    <div th:fragment="questionItem">
+        <div class="well well-lg">
+            <div class="vote test">
+                <span class="glyphicon glyphicon-circle-arrow-up liker block"></span>
+                <span class="counter block" th:text="${question.votes}"></span>
+            </div>
+            <p><a th:href="@{/ama/} + ${ama.id} + @{/question/} + ${question.id}"
+                  th:text="${question.content}"></a>
+            </p>
+        </div>
+    </div>
+
+    <div th:fragment="answerItem">
+        <div class="well well-lg">
+            <div class="vote test">
+                <span class="glyphicon glyphicon-circle-arrow-up liker block"></span>
+                <span class="counter block" th:text="${answer.votes}"></span>
+            </div>
+            <p th:text="${answer.content}"></p>
+        </div>
+    </div>
+
+</body>
+</html>

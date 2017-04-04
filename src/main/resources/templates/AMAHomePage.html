@@ -17,7 +17,12 @@
                 <hr/>
             </div>
 
-            <div class="row amalist"></div>
+            <div th:if="${amas.empty}">
+
+            </div>
+            <div th:each="ama : ${amas}">
+                <th:block th:include="fragments/ListItems :: amaItem"></th:block>
+            </div>
 
         </div>
 

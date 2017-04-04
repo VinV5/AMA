@@ -25,6 +25,8 @@ public class Answer {
     @JsonManagedReference
     private Question question;
 
+    private int votes = 0;
+
     public Answer() {
         this("");
     }

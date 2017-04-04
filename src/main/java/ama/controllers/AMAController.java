@@ -32,8 +32,9 @@ public class AMAController {
     private User currentUser;
 
     @GetMapping("/")
-    public String getHomePage(HttpSession session) {
+    public String getHomePage(HttpSession session, Model m) {
         session.setAttribute("currentUser", currentUser);
+        m.addAttribute("amas", getAMAList());
         return "AMAHomePage";
     }
 
@@ -41,8 +42,14 @@ public class AMAController {
     public String getCreationPage(Model m) {
         m.addAttribute("questionCategories", Arrays.asList(Category.values()));
         m.addAttribute("ama", new AMA());
-
         return "AMACreationPage";
+    }
+
+    @PostMapping("/create")
+    public String createAMA(@ModelAttribute(name = "ama") AMA ama, Model m) {
+        amaRepository.save(ama);
+        m.addAttribute("question", new Question());
+        return "redirect:/";
     }
 
     @GetMapping("/login")
@@ -60,14 +67,15 @@ public class AMAController {
         else
             currentUser = null;
         session.setAttribute("currentUser", currentUser);
-        return "AMAHomePage";
+
+        return "redirect:/";
     }
 
     @RequestMapping("/logout")
     public String logoutUser(HttpSession session, Model model) {
         session.invalidate();
         if(model.containsAttribute("user")) model.asMap().remove("user");
-        return "AMAHomePage";
+        return "redirect:/";
     }
 
     @GetMapping("/signup")
@@ -79,7 +87,7 @@ public class AMAController {
     @PostMapping("/signup")
     public String signUpUser(@ModelAttribute("user") User user) {
         userRepository.save(user);
-        return "AMAHomePage";
+        return "redirect:/";
     }
 
     @GetMapping("/users/list")
@@ -87,13 +95,6 @@ public class AMAController {
         List<User> userList = new ArrayList<>();
         userRepository.findAll().forEach(q -> userList.add(q));
         return userList;
-    }
-
-    @PostMapping("/create")
-    public String createAMA(@ModelAttribute(name = "ama") AMA ama, Model m) {
-        amaRepository.save(ama);
-        m.addAttribute("question", new Question());
-        return "AMASoloPage";
     }
 
     @GetMapping("/ama/list")
@@ -117,19 +118,17 @@ public class AMAController {
         m.addAttribute("ama", ama);
         m.addAttribute("question", new Question());
         m.addAttribute("answer", new Answer());
+        m.addAttribute("questions", getAMAQuestions(id));
         return "AMASoloPage";
     }
 
     @PostMapping("/ama/{id}")
-    public String addAMAQuestion(@ModelAttribute(name = "question") Question temp, Model m, @PathVariable Long id) {
+    public String addAMAQuestion(@ModelAttribute(name = "question") Question temp, @PathVariable Long id) {
         AMA ama = amaRepository.findById(id);
         Question question = new Question(temp.getContent(), ama);
         ama.addQuestion(question);
-        m.addAttribute("question", question);
-        m.addAttribute("ama", ama);
-        m.addAttribute("answer", new Answer());
         amaRepository.save(ama);
-        return "AMASoloPage";
+        return "redirect:/ama/"+id;
     }
 
     @GetMapping("/ama/{id}/question/{qID}")
@@ -139,20 +138,17 @@ public class AMAController {
         m.addAttribute("ama", ama);
         m.addAttribute("question", question);
         m.addAttribute("answer", new Answer());
+        m.addAttribute("answers", getQuestionAnswer(id, qID));
         return "QuestionSoloPage";
     }
 
     @PostMapping("/ama/{id}/question/{qID}")
-    public String addQuestionAnswer(@ModelAttribute(name = "answer") Answer temp, Model m, @PathVariable Long id,@PathVariable Long qID) {
-        Answer answer = new Answer(temp.getContent());
-        AMA ama = amaRepository.findById(id);
+    public String addQuestionAnswer(@ModelAttribute(name = "answer") Answer temp, @PathVariable Long id,@PathVariable Long qID) {
         Question question = questionRepository.findById(qID);
+        Answer answer = new Answer(temp.getContent(), question);
         question.addAnswer(answer);
-        m.addAttribute("ama", ama);
-        m.addAttribute("question",question);
-        m.addAttribute("answer",answer);
-        amaRepository.save(ama);
-        return "QuestionSoloPage";
+        questionRepository.save(question);
+        return "redirect:/ama/"+id+"/question/"+qID;
     }
 
     @GetMapping("/ama/{id}/questions")
@@ -163,7 +159,6 @@ public class AMAController {
 
     @GetMapping("/ama/{id}/question/{qID}/answers")
     public @ResponseBody List<Answer> getQuestionAnswer(@PathVariable Long id,@PathVariable Long qID) {
-        AMA ama = amaRepository.findById(id);
         Question qL = questionRepository.findById(qID);
         return qL.getAnswerList();
     }
@@ -171,8 +166,7 @@ public class AMAController {
     @RequestMapping("/ama/{id}/delete")
     public String deleteAMA(@PathVariable Long id) {
         amaRepository.delete(id);
-
-        return "AMAHomePage";
+        return "redirect:/";
     }
 
     @RequestMapping("/ama/{id}/vote")
@@ -195,12 +189,10 @@ public class AMAController {
     }
 
     @PostMapping("/ama/{id}/addvote")
-    public String addAMAVote(@PathVariable Long id, Model m, @ModelAttribute("user") User user) {
+    public String addAMAVote(@PathVariable Long id, @ModelAttribute("user") User user) {
         upVoteAMA(id, user);
         AMA ama = amaRepository.findById(id);
-        m.addAttribute("question", new Question() );
-        m.addAttribute("ama", ama);
-        return "AMASoloPage";
+        return "redirect:/ama/"+id;
     }
 
     public User getCurrentUser() {

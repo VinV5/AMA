@@ -36,6 +36,8 @@ public class Question {
 
     private String content;
 
+    private int votes = 0;
+
     public Question() {
         this("");
     }

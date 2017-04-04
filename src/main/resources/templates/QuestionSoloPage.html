@@ -26,12 +26,16 @@
     </h1>
     <div >
         <h1>Answers List</h1>
-        <div class="row answerlist">
+        <div th:if="${answers.empty}">
+
+        </div>
+        <div th:each="answer : ${answers}">
+            <th:block th:include="fragments/ListItems :: answerItem"></th:block>
         </div>
     </div>
 
     <hr/>
-    <form action="#" th:action="@{@{/ama/} + ${ama.id} }" th:object="${question}"  method="post">
+    <form action="#" th:action="@{/ama/} + ${ama.id} + @{/question/} + ${question.id}" th:object="${question}"  method="post">
         <input class="form-control hidden" placeholder="Enter Answer" id="title" th:field="*{content}"></input>
         <button class="btn btn-primary pull-right question"  type="submit">Answer</button>
     </form>
