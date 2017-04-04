@@ -16,7 +16,8 @@ public class UserGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @ManyToMany (mappedBy = "groups",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @ManyToMany (mappedBy = "groups",  cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<User> members;
 

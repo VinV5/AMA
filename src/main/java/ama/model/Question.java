@@ -26,10 +26,12 @@ public class Question {
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "question")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonBackReference
     private List<Answer> answerList;
 
     @ManyToOne
     @JoinColumn(name = "ama_id")
+    @JsonManagedReference
     private AMA ama;
 
     private String content;
@@ -40,7 +42,6 @@ public class Question {
 
     public Question(String content) {
         this(content, null);
-
     }
 
     public Question(String content, AMA ama) {
