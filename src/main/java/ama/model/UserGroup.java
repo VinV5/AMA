@@ -1,6 +1,8 @@
 package ama.model;
 
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class UserGroup {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @ManyToMany (mappedBy = "groups",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<User> members;
 
     public UserGroup() {

@@ -1,5 +1,5 @@
 
-    var amaid = $('#amaid').text();
+    var amaid = $('#amaid').text().trim();
     var list = $('.questionlist');
     list.empty();
     $.ajax({
@@ -8,9 +8,11 @@
             $.each(data, function(key, value) {
                 if(value.content !== "") {
                     var par = '<div class="well">';
+                    par += '<p><a href="'+amaid+'/question/'+value.id+'">'+ value.content +'</a>QuestionHome</p>';
                     par += '<p> '+ value.content +'</p>';
                     par += '</div>';
                     list.append(par);
+                    console.log(value.id);
                 }
             });
     });

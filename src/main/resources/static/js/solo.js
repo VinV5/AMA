@@ -4,11 +4,11 @@
 
 
 $('.question').click(function(e) {
-    var input = $('input');
+    var input = $(this).siblings('input');
     if(input.hasClass('hidden')){
         e.preventDefault();
     } else {
         $(this).unbind('submit').submit();
     }
-    $('input').toggleClass('hidden');
+    input.toggleClass('hidden');
 })
