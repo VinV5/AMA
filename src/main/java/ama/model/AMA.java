@@ -1,9 +1,11 @@
 package ama.model;
 
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Data
@@ -12,7 +14,6 @@ public class AMA {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
-
     private String description;
 
     @ManyToOne
@@ -23,24 +24,25 @@ public class AMA {
 
     private int votes;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    public List<Question> questionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ama")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Question> questionList;
 
     private Category category;
 
     private int time;
 
     public AMA() {
-
+        this("");
     }
 
     public AMA(String description) {
-        //this.author = author;
+        questionList = new ArrayList<>();
         this.description = description;
     }
 
     public void addQuestion(Question q) {
-        this.questionList.add(q);
+        questionList.add(q);
     }
 
     public void vote() {
