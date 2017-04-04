@@ -1,12 +1,6 @@
 import ama.AMAApplication;
 import ama.model.AMA;
-import ama.model.Answer;
 import ama.model.Question;
-import ama.repositories.AMARepository;
-import ama.repositories.QuestionRepository;
-import org.hibernate.Hibernate;
-import org.hibernate.SynchronizeableQuery;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +8,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,18 +32,6 @@ public class AMATest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    AMARepository amaRepository;
-
-    @Autowired
-    QuestionRepository questionRepository;
-
-    @Autowired
-    WebApplicationContext app;
-    @Before
-    public void setup(){
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.app).build();
-    }
     @Test
     public void testAddQuestion() {
         Question q = new Question();
@@ -72,15 +50,9 @@ public class AMATest {
 
     @Test
     public void deleteAMA() throws Exception {
-        AMA ama = new AMA();
-        amaRepository.save(ama);
-        mockMvc.perform(get("/ama/" + ama.getId() + "/delete")).andReturn();
-        mockMvc.perform(get("ama/" + ama.getId())).andExpect(status().isNotFound()).andReturn();
+        mockMvc.perform(get("/ama/1/delete")).andReturn();
+        mockMvc.perform(get("ama/1")).andExpect(status().isNotFound()).andReturn();
     }
 
-    @Test
-    public void answerAMA()throws Exception{
-        assertThat(amaRepository.findById(1l).getQuestionList().get(0).getAnswerList().get(0).getContent()).contains("bye");
-    }
 
 }

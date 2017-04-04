@@ -1,12 +1,10 @@
 package ama;
 
 import ama.model.AMA;
-import ama.model.Answer;
-import ama.model.Question;
+import ama.model.Category;
 import ama.model.User;
 import ama.repositories.AMARepository;
 import ama.repositories.UserRepository;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,12 +29,14 @@ public class AMAApplication {
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
-            AMA ama = new AMA( "hi");
-            Question q = new Question("hello", ama);
-            Answer a = new Answer("bye", q);
-            q.addAnswer(a);
-            ama.addQuestion(q);
+            AMA ama = new AMA( "I am the Monkey Man, I like causing monkey trouble. AMA");
+            ama.setCategory(Category.Monkey_Business);
+
+            AMA ama2 = new AMA( "Hey, it's me Pandora, Harbinger of doom and all AMA");
+            ama2.setCategory(Category.Awesome);
+            ama2.setVotes(2);
             amaRepository.save(ama);
+            amaRepository.save(ama2);
         };
     }
 
