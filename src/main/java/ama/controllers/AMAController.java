@@ -10,12 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.*;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
 
 @Controller
 public class AMAController {
@@ -28,6 +24,7 @@ public class AMAController {
     private AnswerRepository answerRepository;
     @Autowired
     private UserRepository userRepository;
+    private Map<Long, Set<User>> amaUpvoters = new HashMap<>();
 
     private User currentUser;
 
@@ -93,7 +90,6 @@ public class AMAController {
     public String createAMA(@ModelAttribute(name = "ama") AMA ama, Model m) {
         amaRepository.save(ama);
         m.addAttribute("question", new Question());
-        m.addAttribute("answer", new Answer());
         return "AMASoloPage";
     }
 
@@ -120,7 +116,8 @@ public class AMAController {
         m.addAttribute("answer", new Answer());
         return "AMASoloPage";
     }
-    @PostMapping("/ama/{id}")
+
+    @PostMapping("/ama/{id}/addquestion")
     public String addAMAQuestion(@ModelAttribute(name = "question") Question temp, Model m, @PathVariable Long id) {
         m.addAttribute("question", new Question() );
         AMA ama = amaRepository.findById(id);
@@ -175,15 +172,34 @@ public class AMAController {
     }
 
     @RequestMapping("/ama/{id}/vote")
-    public @ResponseBody int upVoteAMA(@PathVariable Long id) {
+    public @ResponseBody int upVoteAMA( @PathVariable Long id, @ModelAttribute("user") User user) {
         AMA ama = amaRepository.findById(id);
-        ama.vote();
-        amaRepository.save(ama);
+        if(amaUpvoters.containsKey(id)) {
+            Set<User> upvoters = amaUpvoters.get(id);
+            if(!upvoters.contains(user)) {
+                upvoters.add(user);
+                ama.vote();
+                amaRepository.save(ama);
+            }
+        } else {
+            amaUpvoters.put(id, new HashSet<>());
+            amaUpvoters.get(id).add(user);
+            ama.vote();
+            amaRepository.save(ama);
+        }
         return ama.getVotes();
+    }
+
+    @PostMapping("/ama/{id}/addvote")
+    public String addAMAVote(@PathVariable Long id, Model m, @ModelAttribute("user") User user) {
+        upVoteAMA(id, user);
+        AMA ama = amaRepository.findById(id);
+        m.addAttribute("question", new Question() );
+        m.addAttribute("ama", ama);
+        return "AMASoloPage";
     }
 
     public User getCurrentUser() {
         return currentUser;
     }
-
 }
