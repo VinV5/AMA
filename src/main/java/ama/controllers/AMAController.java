@@ -73,6 +73,8 @@ public class AMAController {
 
     @RequestMapping("/logout")
     public String logoutUser(HttpSession session, Model model) {
+        currentUser = null;
+        session.setAttribute("currentUser", currentUser);
         session.invalidate();
         if(model.containsAttribute("user")) model.asMap().remove("user");
         return "redirect:/";

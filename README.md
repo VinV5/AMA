@@ -28,6 +28,13 @@ Plan for next sprint: User accounts, AMA/question functionality polished, voting
 * Tests added
 * User sign-up
 * User Login
-* Question and Answer feature working
+* Question feature working
 
 Plan for next sprint: Signup+Login validation, Upvote persistence, working user group.
+
+## Milestone 3 - Beta Release
+
+* Logout functionality
+* Upvote functionality
+* Session Management
+* Answer functionality
