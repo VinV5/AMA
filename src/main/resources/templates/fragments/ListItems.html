@@ -20,10 +20,6 @@
 
     <div th:fragment="questionItem">
         <div class="well well-lg">
-            <div class="vote test">
-                <span class="glyphicon glyphicon-circle-arrow-up liker block"></span>
-                <span class="counter block" th:text="${question.votes}"></span>
-            </div>
             <p><a th:href="@{/ama/} + ${ama.id} + @{/question/} + ${question.id}"
                   th:text="${question.content}"></a>
             </p>
@@ -32,10 +28,6 @@
 
     <div th:fragment="answerItem">
         <div class="well well-lg">
-            <div class="vote test">
-                <span class="glyphicon glyphicon-circle-arrow-up liker block"></span>
-                <span class="counter block" th:text="${answer.votes}"></span>
-            </div>
             <p th:text="${answer.content}"></p>
         </div>
     </div>

@@ -9,10 +9,7 @@
 <body>
 <th:block th:include="fragments/nav :: nav"></th:block>
 <div class="container">
-    <div class="vote">
-        <span class="glyphicon glyphicon-circle-arrow-up liker block" aria-hidden="true"></span>
-        <span class="counter block">0</span>
-    </div>
+
     <h3 th:text="${question.content}" >
 
     </h3>
@@ -25,7 +22,7 @@
         [[${question.id}]]
     </h1>
     <div >
-        <h1>Answers List</h1>
+        <h2>Answers List</h2>
         <div th:if="${answers.empty}">
 
         </div>
