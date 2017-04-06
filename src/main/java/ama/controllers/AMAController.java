@@ -6,6 +6,7 @@ import ama.repositories.AnswerRepository;
 import ama.repositories.QuestionRepository;
 import ama.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,12 @@ public class AMAController {
     private User currentUser;
 
     @GetMapping("/")
+    public String redirect(HttpSession session) {
+        session.getId();
+        return "redirect:/home";
+    }
+
+    @GetMapping("/home")
     public String getHomePage(HttpSession session, Model m) {
         session.setAttribute("currentUser", currentUser);
         m.addAttribute("amas", getAMAList());
@@ -49,7 +56,7 @@ public class AMAController {
     public String createAMA(@ModelAttribute(name = "ama") AMA ama, Model m) {
         amaRepository.save(ama);
         m.addAttribute("question", new Question());
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @GetMapping("/login")
@@ -68,7 +75,7 @@ public class AMAController {
             currentUser = null;
         session.setAttribute("currentUser", currentUser);
 
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @RequestMapping("/logout")
@@ -77,7 +84,7 @@ public class AMAController {
         session.setAttribute("currentUser", currentUser);
         session.invalidate();
         if(model.containsAttribute("user")) model.asMap().remove("user");
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @GetMapping("/signup")
@@ -89,7 +96,7 @@ public class AMAController {
     @PostMapping("/signup")
     public String signUpUser(@ModelAttribute("user") User user) {
         userRepository.save(user);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @GetMapping("/users/list")
@@ -168,7 +175,7 @@ public class AMAController {
     @RequestMapping("/ama/{id}/delete")
     public String deleteAMA(@PathVariable Long id) {
         amaRepository.delete(id);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @RequestMapping("/ama/{id}/vote")
