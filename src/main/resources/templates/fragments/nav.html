@@ -19,10 +19,10 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li th:unless="${user}"><a href="/signup"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
-                    <li th:unless="${user}"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li th:if="${user}"><a href="#" th:inline="text"><span class="glyphicon glyphicon-user" />[[${user.name}]]</a></li>
-                    <li th:if="${user}"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                    <li th:unless="${session.currentUser}"><a href="/signup"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
+                    <li th:unless="${session.currentUser}"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li th:if="${session.currentUser}"><a href="#" th:inline="text"><span class="glyphicon glyphicon-user" />[[${user.name}]]</a></li>
+                    <li th:if="${session.currentUser}"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                 </ul>
             </div>
         </nav>
